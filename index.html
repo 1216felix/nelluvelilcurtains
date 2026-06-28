@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nelluvelil Curtains | Premium Curtains &amp; Home D&eacute;cor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+  <!-- World canvas -->
+  <canvas id="world-canvas"></canvas>
+
+  <!-- Butterfly creatures -->
+  <div class="butterfly-creature" style="--sy:22vh;--dur:32s;--del:0s;">
+    <div class="bf-body">
+      <div class="bf-wing bf-wing-lt" style="--wdel:0s;"></div>
+      <div class="bf-wing bf-wing-lb" style="--wdel:0s;"></div>
+      <div class="bf-wing bf-wing-rt" style="--wdel:0s;"></div>
+      <div class="bf-wing bf-wing-rb" style="--wdel:0s;"></div>
+      <div class="bf-thorax"></div>
+    </div>
+  </div>
+  <div class="butterfly-creature" style="--sy:55vh;--dur:26s;--del:-10s;">
+    <div class="bf-body">
+      <div class="bf-wing bf-wing-lt" style="--wdel:0.08s;"></div>
+      <div class="bf-wing bf-wing-lb" style="--wdel:0.08s;"></div>
+      <div class="bf-wing bf-wing-rt" style="--wdel:0.08s;"></div>
+      <div class="bf-wing bf-wing-rb" style="--wdel:0.08s;"></div>
+      <div class="bf-thorax"></div>
+    </div>
+  </div>
+  <div class="butterfly-creature" style="--sy:38vh;--dur:38s;--del:-20s;">
+    <div class="bf-body">
+      <div class="bf-wing bf-wing-lt" style="--wdel:0.15s;"></div>
+      <div class="bf-wing bf-wing-lb" style="--wdel:0.15s;"></div>
+      <div class="bf-wing bf-wing-rt" style="--wdel:0.15s;"></div>
+      <div class="bf-wing bf-wing-rb" style="--wdel:0.15s;"></div>
+      <div class="bf-thorax"></div>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="topbar">Free shipping on orders above &#8377;2,999 &nbsp;&middot;&nbsp; Handcrafted Curtains Since Generations</div>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-main">Nelluvelil</span>
+        <span class="logo-sub">CURTAINS &amp; DRAPES</span>
+      </a>
+      <nav class="main-nav">
+        <a href="#home" class="active">Home</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="track-order.html">My Orders</a>
+      </nav>
+      <div class="nav-icons">
+        <button id="login-btn-header" class="login-btn-header">Login</button>
+        <div id="user-chip" class="user-chip" style="display:none">
+          <span id="chip-phone"></span>
+          <button class="user-chip-orders" onclick="openMyOrders()">My Orders</button>
+          <button class="user-chip-logout" onclick="handleLogout()">Logout</button>
+        </div>
+        <button id="cart-btn" class="cart-btn" aria-label="Open cart">
+          &#x1F6D2; <span id="cart-count" class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+    <div class="cat-nav">
+      <div class="cat-nav-inner">
+        <button class="cat-tab active" data-cat="all">All</button>
+        <button class="cat-tab" data-cat="curtains">Curtains</button>
+        <button class="cat-tab" data-cat="customized">Customized Curtain Works</button>
+        <button class="cat-tab" data-cat="blinds">Blinds</button>
+        <button class="cat-tab" data-cat="floor-mats">Floor Mats</button>
+        <button class="cat-tab" data-cat="wallpapers">Wallpapers</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+
+    <div class="hero-nebs" data-depth="0.18" aria-hidden="true">
+      <div class="neb neb-1"></div>
+      <div class="neb neb-2"></div>
+      <div class="neb neb-3"></div>
+    </div>
+
+    <div class="hero-swatches" data-depth="0.38" aria-hidden="true">
+      <div class="swatch sw-1"></div>
+      <div class="swatch sw-2"></div>
+      <div class="swatch sw-3"></div>
+      <div class="swatch sw-4"></div>
+      <div class="swatch sw-5"></div>
+    </div>
+
+    <div class="curtain-scene-wrap" id="scene3d" aria-hidden="true">
+      <div class="curtain curtain-left"></div>
+      <div class="curtain curtain-right"></div>
+    </div>
+
+    <div class="hero-content">
+      <span class="hero-badge">&#10022; Premium Handcrafted Textiles</span>
+      <h1>Drape Your Home<br><span class="title-glow">in Elegance</span></h1>
+      <p>Premium handwoven curtains crafted with tradition and care &mdash;<br>for every window, every mood.</p>
+      <div class="hero-btns">
+        <a href="#shop" class="btn btn-primary btn-glow">Explore Collection</a>
+        <a href="#about" class="btn btn-ghost">Our Story</a>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <div class="scroll-cue-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== SHOP ===== -->
+  <section class="garden-section" id="shop">
+    <div class="garden-glow" aria-hidden="true"></div>
+
+    <!-- Butterflies that fly through the product grid -->
+    <div class="garden-butterfly" style="--sy:180px;--dur:22s;--del:0s;" aria-hidden="true">
+      <div class="bf-body">
+        <div class="bf-wing bf-wing-lt" style="--wdel:0s;"></div>
+        <div class="bf-wing bf-wing-lb" style="--wdel:0s;"></div>
+        <div class="bf-wing bf-wing-rt" style="--wdel:0s;"></div>
+        <div class="bf-wing bf-wing-rb" style="--wdel:0s;"></div>
+        <div class="bf-thorax"></div>
+      </div>
+    </div>
+    <div class="garden-butterfly" style="--sy:400px;--dur:17s;--del:-6s;" aria-hidden="true">
+      <div class="bf-body">
+        <div class="bf-wing bf-wing-lt" style="--wdel:0.1s;"></div>
+        <div class="bf-wing bf-wing-lb" style="--wdel:0.1s;"></div>
+        <div class="bf-wing bf-wing-rt" style="--wdel:0.1s;"></div>
+        <div class="bf-wing bf-wing-rb" style="--wdel:0.1s;"></div>
+        <div class="bf-thorax"></div>
+      </div>
+    </div>
+    <div class="garden-butterfly" style="--sy:640px;--dur:26s;--del:-13s;" aria-hidden="true">
+      <div class="bf-body">
+        <div class="bf-wing bf-wing-lt" style="--wdel:0.18s;"></div>
+        <div class="bf-wing bf-wing-lb" style="--wdel:0.18s;"></div>
+        <div class="bf-wing bf-wing-rt" style="--wdel:0.18s;"></div>
+        <div class="bf-wing bf-wing-rb" style="--wdel:0.18s;"></div>
+        <div class="bf-thorax"></div>
+      </div>
+    </div>
+
+    <h2 class="section-title glow-title reveal">The Garden</h2>
+    <p class="section-subtitle reveal">Wander through our curated world of fabrics, blinds &amp; more.</p>
+    <div class="product-search-wrap">
+      <span class="product-search-icon">&#128269;</span>
+      <input type="search" id="product-search" class="product-search-input"
+             placeholder="Search curtains, blinds, floor mats…" autocomplete="off" />
+      <button id="product-search-clear" class="product-search-clear" aria-label="Clear search">&times;</button>
+    </div>
+    <div id="product-grid" class="product-grid"></div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="realm-section" id="about">
+    <h2 class="section-title glow-title reveal">The Craft Realm</h2>
+    <p class="section-subtitle reveal">Generations of mastery, woven into every thread.</p>
+    <div class="realm-orbs">
+      <div class="realm-orb reveal">
+        <div class="orb-glow"></div>
+        <span class="orb-icon">&#10022;</span>
+        <h3>Premium Fabrics</h3>
+        <p>Carefully sourced materials that blend beauty with durability across every weave.</p>
+      </div>
+      <div class="realm-orb reveal">
+        <div class="orb-glow"></div>
+        <span class="orb-icon">&#9672;</span>
+        <h3>Custom Sizes</h3>
+        <p>Tailored to fit every window and every vision &mdash; no space too unique.</p>
+      </div>
+      <div class="realm-orb reveal">
+        <div class="orb-glow"></div>
+        <span class="orb-icon">&#10059;</span>
+        <h3>Generations Deep</h3>
+        <p>A legacy of craftsmanship carried through family traditions, Pan-India delivery.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="portal-section" id="contact">
+    <div class="portal-ring pr-1" aria-hidden="true"></div>
+    <div class="portal-ring pr-2" aria-hidden="true"></div>
+    <div class="portal-ring pr-3" aria-hidden="true"></div>
+    <div class="portal-ring pr-4" aria-hidden="true"></div>
+    <h2 class="section-title glow-title reveal">Open the Portal</h2>
+    <p class="section-subtitle reveal">Step through to connect with us about custom orders &amp; bulk enquiries.</p>
+    <div class="portal-gems reveal">
+      <div class="portal-gem" onclick="window.open('https://maps.google.com/?q=Nelluvelil+Curtain+%26+Furnishing,+WP46%2BC5P,+Thodupuzha+-+Muvattupuzha+Rd,+Thodupuzha,+Kerala+685584','_blank')" style="cursor:pointer;">
+        <span class="gem-label">Location</span>
+        <span class="gem-icon">&#128205;</span>
+        <strong>Nelluvelil Curtain &amp; Furnishing, Thodupuzha</strong>
+      </div>
+      <div class="portal-gem" onclick="window.location.href='tel:+919876543210'" style="cursor:pointer;">
+        <span class="gem-label">Phone</span>
+        <span class="gem-icon">&#128222;</span>
+        <strong>+91 98765 43210</strong>
+      </div>
+      <div class="portal-gem" onclick="window.location.href='mailto:info@nelluvelilcurtains.com'" style="cursor:pointer;">
+        <span class="gem-label">Email</span>
+        <span class="gem-icon">&#9993;</span>
+        <strong>info@nelluvelilcurtains.com</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Nelluvelil Curtains. All rights reserved.</p>
+    <p class="footer-admin">
+      <a href="track-order.html">Track Your Order</a> &nbsp;|&nbsp;
+      <a href="admin.html">Admin Panel</a>
+    </p>
+  </footer>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div id="cart-breakdown" class="cart-breakdown"></div>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cart-total">&#8377;0</span>
+      </div>
+      <button id="checkout-btn" class="btn btn-primary btn-block">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ===== CHECKOUT MODAL ===== -->
+  <div id="checkout-overlay" class="cart-overlay"></div>
+  <div id="checkout-modal" class="checkout-modal">
+    <div class="checkout-box">
+      <button id="checkout-close" class="modal-close" aria-label="Close">&times;</button>
+      <h3>Checkout Details</h3>
+      <form id="checkout-form">
+        <label>Full Name<input type="text" id="cust-name" required /></label>
+        <label>Phone Number<input type="tel" id="cust-phone" required /></label>
+        <label>Email<input type="email" id="cust-email" required /></label>
+        <label>Delivery Address<textarea id="cust-address" required></textarea></label>
+        <label>Payment Method
+          <select id="cust-payment">
+            <option value="COD">Cash on Delivery</option>
+            <option value="UPI">UPI</option>
+            <option value="Card">Card</option>
+          </select>
+        </label>
+        <div id="install-row" class="install-row" style="display:none">
+          <label class="install-check-label">
+            <input type="checkbox" id="cust-installation" />
+            <span>Add Installation Service</span>
+            <span id="install-charge-label" class="install-charge-badge"></span>
+          </label>
+        </div>
+        <div class="checkout-summary" id="checkout-summary"></div>
+        <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- ===== LOGIN MODAL ===== -->
+  <div id="login-overlay" class="cart-overlay"></div>
+  <div id="login-modal" class="checkout-modal">
+    <div class="checkout-box auth-box">
+      <button id="login-modal-close" class="modal-close" aria-label="Close">&times;</button>
+      <h3>View My Orders</h3>
+      <p class="auth-hint">Enter the mobile number you used when placing your order.</p>
+      <div class="auth-phone-row">
+        <span class="auth-cc">+91</span>
+        <input type="tel" id="auth-phone-input" placeholder="98765 43210"
+               maxlength="10" inputmode="numeric" autocomplete="tel" />
+      </div>
+      <button id="auth-send-otp-btn" class="btn btn-primary btn-block">Find My Orders</button>
+      <p id="auth-error" class="auth-error"></p>
+    </div>
+  </div>
+
+  <!-- ===== MY ORDERS MODAL ===== -->
+  <div id="my-orders-overlay" class="cart-overlay"></div>
+  <div id="my-orders-modal" class="checkout-modal">
+    <div class="checkout-box">
+      <button id="my-orders-close" class="modal-close" aria-label="Close">&times;</button>
+      <h3>My Orders</h3>
+      <div id="my-orders-list"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/emailjs-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/email.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/world.js"></script>
+</body>
+</html>

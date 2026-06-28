@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | Nelluvelil Curtains</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ===== LOGIN GATE ===== -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-box">
+      <h2>Admin Login</h2>
+      <p class="login-hint">Default password: <code>admin123</code> (change it in js/admin.js)</p>
+      <input type="password" id="login-password" placeholder="Enter admin password" />
+      <button id="login-btn" class="btn btn-primary btn-block">Login</button>
+      <p id="login-error" class="login-error"></p>
+      <a href="index.html" class="back-to-store">← Back to store</a>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN DASHBOARD ===== -->
+  <div id="admin-dashboard" class="admin-dashboard hidden">
+
+    <header class="admin-header">
+      <a href="index.html" class="logo">
+        <span class="logo-main">Nelluvelil</span>
+        <span class="logo-sub">ADMIN PANEL</span>
+      </a>
+      <div class="admin-header-actions">
+        <a href="index.html" class="btn btn-secondary">View Store</a>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </header>
+
+    <nav class="admin-tabs">
+      <button class="tab-btn" data-tab="orders">📦 Orders</button>
+      <button class="tab-btn" data-tab="products">🛍️ Products</button>
+      <button class="tab-btn active" data-tab="stats">📊 Overview</button>
+      <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+    </nav>
+
+    <!-- ---- OVERVIEW TAB ---- -->
+    <section id="tab-stats" class="tab-content active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Total Orders</span>
+          <span class="stat-value" id="stat-orders">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Total Revenue</span>
+          <span class="stat-value" id="stat-revenue">₹0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Pending Orders</span>
+          <span class="stat-value" id="stat-pending">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Total Products</span>
+          <span class="stat-value" id="stat-products">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- SETTINGS TAB ---- -->
+    <section id="tab-settings" class="tab-content">
+      <div class="section-header"><h2>Store Settings</h2></div>
+      <div class="settings-card">
+        <h3 class="settings-group-title">Installation Service</h3>
+        <p class="settings-hint">Set the charge customers can add at checkout for installation. Set to 0 to hide the option entirely.</p>
+        <div class="settings-row">
+          <label for="install-charge-input">Installation Charge (₹)</label>
+          <div class="settings-input-wrap">
+            <span class="settings-currency">₹</span>
+            <input type="number" id="install-charge-input" min="0" step="1" placeholder="e.g. 500" class="settings-number-input" />
+          </div>
+        </div>
+        <button id="save-settings-btn" class="btn btn-primary">Save Settings</button>
+        <p id="settings-saved-msg" class="settings-saved-msg"></p>
+      </div>
+    </section>
+
+    <!-- ---- ORDERS TAB ---- -->
+    <section id="tab-orders" class="tab-content">
+      <div class="section-header">
+        <h2>Customer Orders</h2>
+        <button id="clear-orders-btn" class="btn btn-secondary">Clear All Orders</button>
+      </div>
+      <div id="orders-list" class="orders-list"></div>
+    </section>
+
+    <!-- ---- PRODUCTS TAB ---- -->
+    <section id="tab-products" class="tab-content">
+      <div class="section-header">
+        <h2>Manage Products</h2>
+        <div style="display:flex; gap:10px;">
+          <button id="reset-products-btn" class="btn btn-secondary">Reset to Default</button>
+          <button id="add-product-btn" class="btn btn-primary">+ Add Product</button>
+        </div>
+      </div>
+      <div id="products-table-wrap" class="products-table-wrap">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>Images</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Old Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="products-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== ADD PRODUCT MODAL (outside tabs so fixed overlay never interferes) ===== -->
+  <div id="product-modal-overlay" class="cart-overlay"></div>
+  <div id="product-modal" class="checkout-modal">
+    <div class="checkout-box">
+      <button id="product-modal-close" class="modal-close" aria-label="Close">✕</button>
+      <h3 id="product-modal-title">Add Product</h3>
+      <form id="product-form">
+        <input type="hidden" id="p-id" />
+        <label>Product Name<input type="text" id="p-name" required /></label>
+        <label>Category
+          <select id="p-category" onchange="toggleSubCategory(this.value)">
+            <option value="curtains">Curtains</option>
+            <option value="customized">Customized Curtain Works</option>
+            <option value="blinds">Blinds</option>
+            <option value="floor-mats">Floor Mats</option>
+            <option value="wallpapers">Wallpapers</option>
+          </select>
+        </label>
+        <label id="p-subcategory-wrap">Sub-category
+          <select id="p-subcategory"></select>
+        </label>
+        <label>Price (₹)<input type="number" id="p-price" required /></label>
+        <label>Old Price (₹)<input type="number" id="p-oldprice" /></label>
+        <label>Description<textarea id="p-description" rows="3"></textarea></label>
+        <label>Emoji Icon<input type="text" id="p-icon" placeholder="🪟" /></label>
+
+        <!-- ── COLOUR OPTIONS ── -->
+        <div class="admin-section-label">Colour Options <span class="field-hint">(optional)</span></div>
+        <div id="color-editor" class="color-editor"></div>
+        <button type="button" id="add-color-btn" class="btn btn-secondary btn-sm">+ Add Colour</button>
+
+        <!-- ── DESIGN OPTIONS ── -->
+        <div class="admin-section-label" style="margin-top:12px;">Designs / Patterns <span class="field-hint">(optional image &amp; price per design)</span></div>
+        <div id="design-editor" class="color-editor"></div>
+        <button type="button" id="add-design-btn" class="btn btn-secondary btn-sm">+ Add Design</button>
+
+        <!-- ── LENGTH OPTIONS ── -->
+        <div class="admin-section-label">Length Options <span class="field-hint">(tick to enable · set price to override base price)</span></div>
+        <div class="size-checkbox-group" id="p-length-group">
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="4 ft"> 4 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="4 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="5 ft"> 5 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="5 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="6 ft"> 6 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="6 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="7 ft"> 7 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="7 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="8 ft"> 8 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="8 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="9 ft"> 9 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="9 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="10 ft"> 10 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="10 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="12 ft"> 12 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="12 ft" data-type="length" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-length-cb" value="Custom"> Custom</label></div>
+        </div>
+
+        <!-- ── WIDTH OPTIONS ── -->
+        <div class="admin-section-label">Width Options <span class="field-hint">(for customised products · set price to override base price)</span></div>
+        <div class="size-checkbox-group" id="p-width-group">
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="2 ft"> 2 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="2 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="3 ft"> 3 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="3 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="4 ft"> 4 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="4 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="5 ft"> 5 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="5 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="6 ft"> 6 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="6 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="7 ft"> 7 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="7 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="8 ft"> 8 ft</label><input type="number" class="option-price-input" placeholder="₹ price" data-size="8 ft" data-type="width" min="0"></div>
+          <div class="size-option-row"><label><input type="checkbox" class="p-width-cb" value="Custom"> Custom</label></div>
+        </div>
+
+        <div class="multi-img-label">Product Images</div>
+        <div id="image-grid" class="image-grid"></div>
+        <input type="file" id="p-image-file" accept="image/*" multiple style="display:none" />
+        <input type="hidden" id="p-images" />
+
+        <label>Installation Charge (₹) <span style="font-size:0.8rem;color:var(--color-text-light);font-weight:400;">— leave blank for no installation option</span>
+          <input type="number" id="p-installation-charge" min="0" step="1" placeholder="e.g. 500" />
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="p-instock" checked /> In Stock
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="p-customizable" /> Made-to-measure (shows size confirmation notice)
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-block">Save Product</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product | Nelluvelil Curtains</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="topbar">Free shipping on orders above ₹2,999 | Handcrafted Curtains Since Generations</div>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-main">Nelluvelil</span>
+        <span class="logo-sub">CURTAINS &amp; DRAPES</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#shop">Shop</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="track-order.html">My Orders</a>
+      </nav>
+      <div class="nav-icons">
+        <button id="cart-btn" class="cart-btn" aria-label="Open cart">
+          🛒 <span id="cart-count" class="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== PRODUCT DETAIL ===== -->
+  <main class="pd-page">
+    <div class="pd-container">
+      <a href="index.html#shop" class="pd-back">← Back to Collection</a>
+      <div id="product-detail" class="pd-grid">
+        <!-- Rendered by product.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Nelluvelil Curtains. All rights reserved.</p>
+    <p class="footer-admin"><a href="track-order.html">Track Your Order</a> &nbsp;|&nbsp; <a href="admin.html">Admin Panel</a></p>
+  </footer>
+
+  <!-- ===== CART DRAWER ===== -->
+  <div id="cart-overlay" class="cart-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="cart-close" aria-label="Close cart">✕</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cart-total">₹0</span>
+      </div>
+      <button id="checkout-btn" class="btn btn-primary btn-block">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ===== CHECKOUT MODAL ===== -->
+  <div id="checkout-overlay" class="cart-overlay"></div>
+  <div id="checkout-modal" class="checkout-modal">
+    <div class="checkout-box">
+      <button id="checkout-close" class="modal-close" aria-label="Close">✕</button>
+      <h3>Checkout Details</h3>
+      <form id="checkout-form">
+        <label>Full Name<input type="text" id="cust-name" required /></label>
+        <label>Phone Number<input type="tel" id="cust-phone" required /></label>
+        <label>Email<input type="email" id="cust-email" required /></label>
+        <label>Delivery Address<textarea id="cust-address" required></textarea></label>
+        <label>Payment Method
+          <select id="cust-payment">
+            <option value="COD">Cash on Delivery</option>
+            <option value="UPI">UPI</option>
+            <option value="Card">Card</option>
+          </select>
+        </label>
+        <div class="checkout-summary" id="checkout-summary"></div>
+        <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/emailjs-config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/email.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>
